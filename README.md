@@ -7,22 +7,6 @@ https://restful-booker.herokuapp.com/
 * Java version: 20.0.1
 * Maven version: 3.9.4
 
-Entretanto, para maior agilidade de entrega e inclusão de pipiline CI, alterei o arquivo pom.xml para que o Maven trabalhasse com a versão 11 do Java. Dessa forma não foi necessário criar uma imagem Docker com a versão mais recente do Java.
-
-A versão foi alterada de 20 para 11 nas seguintes Tags:
-
-De:
-
-        <maven.compiler.source>20</maven.compiler.source>
-        <maven.compiler.target>20</maven.compiler.target>
-
-
-Para:
-
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-
-
 O Maven é fundamental para o gerênciamento das demais dependências de plugins essenciais para o projeto como ```Rest Assured``` e ```JUnit``` entre outros recursos que foram utilizados.
 
 
