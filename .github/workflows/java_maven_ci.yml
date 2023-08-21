@@ -17,12 +17,13 @@ jobs:
           java-version: '20'
 
       - name: Build with Maven
+        id: maven
         run: mvn surefire-report:report
+        continue-on-error: true
 
-      - name: Renomeando o arquivo para upload no Git-Hub Pages
+      - name: Rename file for Git-Hub Pages
         run: mv ./target/site/surefire-report.html ./target/site/index.html
 
-        if: ${{ always() }}
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         # If you're changing the branch from main,
@@ -34,5 +35,7 @@ jobs:
           publish_dir: ./target/site
 
       - name: Validate job has failed
-        if: ${{ failure() }}
+        if: ${{ failure() && steps.maven.conclusion == 'failure' }}
         run: exit 1
+
+
