@@ -23,6 +23,7 @@ jobs:
       - name: Renomeando o arquivo para upload no Git-Hub Pages
         run: mv ./target/site/surefire-report.html ./target/site/index.html
 
+        if: ${{ always() }}
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         # If you're changing the branch from main,
@@ -32,8 +33,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site
-
-      - name: Validate erros
-        run: |
-          if [ ${{ failure() }} = true ]; then
-            exit 1
