@@ -1,6 +1,8 @@
 # RestAssuredTest
 
 https://restful-booker.herokuapp.com/
+                
+    Relatório da execução dos testes disponível em https://wailler-prata.github.io/RestAssuredTest/
 
 ## Informações mínimas do projeto
 
