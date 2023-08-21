@@ -18,7 +18,6 @@ jobs:
 
       - name: Build with Maven
         run: mvn surefire-report:report
-        continue-on-error: true
 
       - name: Renomeando o arquivo para upload no Git-Hub Pages
         run: mv ./target/site/surefire-report.html ./target/site/index.html
