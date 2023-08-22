@@ -25,7 +25,7 @@ jobs:
 
       - name: Check Test Results
         run: |
-          if [ -f target/surefire-reports/*.xml ]; then
+          if [ -f target/surefire-reports/*.xml ] && grep -q '<testsuite errors="0" failures="0">' target/surefire-reports/*.xml; then
             echo "Tests passed."
           else
             echo "Tests failed."
