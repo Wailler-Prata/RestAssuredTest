@@ -54,11 +54,7 @@ public class TestBooking extends BaseRequest {
     @Test
     @DisplayName("'" + END_POINT + "/{id}' . Get booking by invalid id. Expected status code 401")
     public void testGetBookingByInvalidIdExpectedStatusCode401(){
-        Response responseGetAllBooking = REQUEST.get(END_POINT);
-        int lastBookingId = responseGetAllBooking.path("collect { it.bookingid }.max()");
-        lastBookingId++;
-
-        Response response = REQUEST.get(String.format("%s/%d", END_POINT, lastBookingId));
+        Response response = REQUEST.get(String.format("%s/%d", END_POINT, 0));
         AssertionsUtils.assertStatusCode(response, HttpStatus.SC_NOT_FOUND);
     }
 
