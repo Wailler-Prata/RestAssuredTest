@@ -52,6 +52,6 @@ public class TestAuthentication extends BaseRequest {
 
         Response response = postAuthentication(invalidCredentials);
         AssertionsUtils.assertIfFieldsExistsInResponse(response, TOKEN_JSON_PATH, false);
-        AssertionsUtils.assertStatusCode(response, HttpStatus.SC_OK);
+        AssertionsUtils.assertStatusCode(response, HttpStatus.SC_UNAUTHORIZED);
     }
 }
