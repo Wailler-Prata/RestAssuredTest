@@ -16,6 +16,10 @@ jobs:
           distribution: 'oracle' # See 'Supported distributions' for available options
           java-version: '20'
 
+      - name: Install xmlstarlet
+        run: |
+          sudo apt update && sudo apt install xmlstarlet
+
       - name: Build with Maven
         id: maven
         run: mvn surefire-report:report test
@@ -25,13 +29,17 @@ jobs:
 
       - name: Check Test Results
         run: |
-          if grep -q 'Failures: 0' target/surefire-reports/*.txt && grep -q 'Errors: 0' target/surefire-reports/*.txt; then
-            echo "Tests passed."
-            exit 0
-          else
-            echo "Tests failed."
-            exit 1
-          fi
+          for file in target/surefire-reports/*.xml; do
+            if ! xmlstarlet sel -t -v "testsuite/@failures" -n "$file" | grep -q "0"; then
+              echo "Tests failed."
+              exit 1
+            fi
+            if ! xmlstarlet sel -t -v "testsuite/@errors" -n "$file" | grep -q "0"; then
+              echo "Tests failed."
+              exit 1
+            fi
+          done
+          echo "Tests passed."
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
