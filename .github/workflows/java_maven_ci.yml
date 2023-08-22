@@ -18,7 +18,7 @@ jobs:
 
       - name: Build with Maven
         id: maven
-        run: mvn surefire-report:report test
+        run: mvn test
 
       - name: Rename file for Git-Hub Pages
         if: ${{ always() }}
