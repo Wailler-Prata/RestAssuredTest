@@ -18,11 +18,19 @@ jobs:
 
       - name: Build with Maven
         id: maven
-        run: mvn test
+        run: mvn surefire-report:report test
 
       - name: Rename file for Git-Hub Pages
-        if: ${{ always() }}
         run: mv ./target/site/surefire-report.html ./target/site/index.html
+
+      - name: Check Test Results
+        run: |
+          if [ -f target/surefire-reports/*.xml ]; then
+            echo "Tests passed."
+          else
+            echo "Tests failed."
+            exit 1
+          fi
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
