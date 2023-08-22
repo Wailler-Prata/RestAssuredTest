@@ -19,9 +19,9 @@ jobs:
       - name: Build with Maven
         id: maven
         run: mvn surefire-report:report
-        continue-on-error: true
 
       - name: Rename file for Git-Hub Pages
+        if: ${{ always() }}
         run: mv ./target/site/surefire-report.html ./target/site/index.html
 
       - name: Deploy to GitHub Pages
@@ -29,13 +29,9 @@ jobs:
         # If you're changing the branch from main,
         # also change the `main` in `refs/heads/main`
         # below accordingly.
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ always() && github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site
-
-      - name: Validate job has failed
-        if: ${{ failure() && steps.maven.conclusion == 'failure' }}
-        run: exit 1
 
 
