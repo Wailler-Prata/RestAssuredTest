@@ -25,7 +25,7 @@ jobs:
 
       - name: Check Test Results
         run: |
-          if grep -q 'Failures: 0' target/surefire-reports/*.txt || grep -q 'Errors: 0' target/surefire-reports/*.txt; then
+          if grep -q 'Failures: 0' target/surefire-reports/*.txt && grep -q 'Errors: 0' target/surefire-reports/*.txt; then
             echo "Tests passed."
             exit 0
           else
